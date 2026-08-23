@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nihla N — Solar Energy System Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1220;
+    --ink-soft:#141E33;
+    --gold:#F2A93B;
+    --gold-dim:#8a6a2f;
+    --sky:#6FA8D8;
+    --cream:#F3EFE6;
+    --slate:#8C93A6;
+    --line:rgba(243,239,230,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--cream);
+    font-family:'Source Serif 4', serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+
+  /* ---- Hero ---- */
+  header{
+    padding:76px 0 56px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-size:12px; text-transform:uppercase; color:var(--gold);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:""; width:26px; height:1px; background:var(--gold); display:inline-block;
+  }
+  h1.display{
+    font-size:clamp(38px,6vw,64px);
+    font-weight:600;
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    color:var(--cream);
+  }
+  h1.display span{color:var(--gold);}
+  .tagline{
+    max-width:520px; margin-top:20px; font-size:18px; color:var(--slate);
+    font-family:'Source Serif 4', serif;
+  }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:22px; margin-top:34px;
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--sky);
+  }
+  .contact-row a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(111,168,216,0.35); padding-bottom:2px;}
+  .contact-row a:hover{border-color:var(--sky);}
+
+  /* signature waveform motif */
+  .waveform{
+    margin-top:52px;
+    width:100%;
+    height:64px;
+    display:block;
+  }
+  .waveform path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1.4;
+    opacity:0.55;
+  }
+  .waveform path.b{ stroke:var(--sky); opacity:0.35; }
+
+  /* ---- Section shell ---- */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px;}
+  .section-num{font-family:'IBM Plex Mono',monospace; color:var(--gold-dim); font-size:13px;}
+  h2.display{font-size:26px; font-weight:600; letter-spacing:-0.01em;}
+  .lede{max-width:600px; color:var(--slate); font-size:16px; margin-bottom:6px;}
+
+  /* ---- Case studies ---- */
+  .case{
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:32px;
+    margin-bottom:24px;
+    position:relative;
+  }
+  .case-top{display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:22px;}
+  .case-title{font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--cream);}
+  .case-tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--gold);
+    border:1px solid var(--gold-dim); padding:4px 10px; border-radius:20px; white-space:nowrap;
+  }
+  .metrics{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    margin:20px 0;
+  }
+  .metric{padding:18px 16px 18px 0; border-right:1px solid var(--line);}
+  .metric:last-child{border-right:none;}
+  .metric .num{font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:600; color:var(--gold);}
+  .metric .lab{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--slate); text-transform:uppercase; margin-top:4px; display:block;}
+  .case p{color:var(--slate); font-size:15px; max-width:640px;}
+  .case p + p{margin-top:10px;}
+  .case-note{
+    margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--sky); opacity:0.8;
+  }
+
+  @media (max-width:640px){
+    .metrics{grid-template-columns:repeat(2,1fr);}
+    .metric{border-right:1px solid var(--line);}
+    .metric:nth-child(2n){border-right:none;}
+    .metric:nth-child(n+3){border-top:1px solid var(--line);}
+  }
+
+  /* ---- Skills ---- */
+  .skill-group{margin-bottom:26px;}
+  .skill-group:last-child{margin-bottom:0;}
+  .skill-group-label{font-size:11px; color:var(--gold-dim); text-transform:uppercase; margin-bottom:12px;}
+  .chips{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--cream);
+    border:1px solid var(--line); padding:9px 14px; border-radius:20px;
+  }
+
+  /* ---- Footer ---- */
+  footer{padding:56px 0 80px; text-align:left;}
+  footer .display{font-size:22px; font-weight:600; margin-bottom:14px;}
+  footer p{color:var(--slate); max-width:480px; margin-bottom:22px; font-size:15px;}
+  .disclaimer{
+    margin-top:48px; padding-top:20px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate); opacity:0.7;
+    max-width:640px;
+  }
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow mono">SOLAR ENERGY SYSTEM DESIGN</div>
+    <h1 class="display">Nihla N<span>.</span></h1>
+    <p class="tagline">Independent solar design &amp; proposal work — array layout, shading and energy-yield analysis, tariff-based savings modeling, and client-ready quotations. Based in Wayanad, Kerala.</p>
+    <div class="contact-row">
+      <a href="tel:+919947081582">+91 99470 81582</a>
+      <a href="mailto:nihlanihla41@gmail.com">nihlanihla41@gmail.com</a>
+      <span style="color:var(--slate)">Wayanad, Kerala, India</span>
+    </div>
+
+    <svg class="waveform" viewBox="0 0 900 64" preserveAspectRatio="none">
+      <path class="b" d="M0,40 L60,40 L75,20 L90,52 L105,10 L120,40 L900,40" />
+      <path d="M0,44 L120,44 L138,26 L156,58 L174,14 L192,44 L900,44" />
+    </svg>
+  </header>
+
+  <section id="about" class="reveal">
+    <div class="section-head">
+      <span class="section-num">00</span>
+      <h2 class="display">About this practice</h2>
+    </div>
+    <p class="lede">I'm an Electrical &amp; Electronics Engineering student building a freelance practice in residential solar system design — designing systems the way an installer would, but working independently as a designer. The two projects below are sample designs I built end-to-end in OpenSolar to develop and demonstrate this skillset: array layout, shading analysis, financial modeling, and proposal generation.</p>
+  </section>
+
+  <section id="work" class="reveal">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="display">Sample Projects</h2>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div class="case-title">Shaded Residential Roof — Multi-Orientation Array</div>
+        <div class="case-tag">RESIDENTIAL · SHADED</div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="num">2.35 kW</span><span class="lab">System Size</span></div>
+        <div class="metric"><span class="num">₹16,753</span><span class="lab">Annual Savings</span></div>
+        <div class="metric"><span class="num">6y 5m</span><span class="lab">Payback Period</span></div>
+        <div class="metric"><span class="num">96%</span><span class="lab">Consumption Offset</span></div>
+      </div>
+      <p>A small residential roof with a nearby palm tree casting partial shade. I split the array across four orientations (7 panels, 335 W each) to work around the obstruction, then modeled shading losses of 10.4% into the annual yield estimate.</p>
+      <p>Savings were calculated against Kerala State Electricity Board's telescopic domestic tariff, projecting ₹1.17 lakh net system cost against ₹4.74 lakh in lifetime bill savings over 25 years.</p>
+      <div class="case-note mono">SPR-P3-335-BLK · 4 azimuths · KSEB LT-1 domestic telescopic tariff</div>
+    </div>
+
+    <div class="case">
+      <div class="case-top">
+        <div class="case-title">Unshaded Roof — Commercial Load Profile</div>
+        <div class="case-tag">COMMERCIAL TARIFF · UNSHADED</div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="num">8.71 kW</span><span class="lab">System Size</span></div>
+        <div class="metric"><span class="num">₹71,672</span><span class="lab">Annual Savings</span></div>
+        <div class="metric"><span class="num">5y 7m</span><span class="lab">Payback Period</span></div>
+        <div class="metric"><span class="num">125%</span><span class="lab">Consumption Offset</span></div>
+      </div>
+      <p>A larger, unobstructed single-facing roof sized against a higher-usage load profile (~10,000 kWh/year). With no shading to route around, the array is a single 26-panel block generating more energy than the property consumes.</p>
+      <p>Modeled against KSEB's tiered commercial LT-VII(A) tariff — five consumption tiers from ₹6.05 to ₹9.40 per kWh — projecting ₹17.4 lakh in net savings over the system's lifetime.</p>
+      <div class="case-note mono">SPR-P3-335-BLK · single azimuth · KSEB LT-VII(A) commercial tariff</div>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="display">Skills</h2>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">SOLAR DESIGN</div>
+      <div class="chips">
+        <span class="chip">Array layout &amp; panel orientation</span>
+        <span class="chip">Shading &amp; energy-yield analysis</span>
+        <span class="chip">Utility tariff modeling</span>
+        <span class="chip">Financial &amp; payback analysis</span>
+        <span class="chip">Client proposal generation</span>
+        <span class="chip">OpenSolar design software</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label mono">ELECTRICAL DESIGN</div>
+      <div class="chips">
+        <span class="chip">Load estimation</span>
+        <span class="chip">Transformer sizing</span>
+        <span class="chip">Distribution board (DB) sizing</span>
+        <span class="chip">Sub-main distribution board (SMDB) sizing</span>
+        <span class="chip">Main distribution board (MDB) sizing</span>
+        <span class="chip">Cable sizing &amp; calculation</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="reveal">
+    <div class="display">Let's talk about your roof.</div>
+    <p>Open to residential solar design and proposal work — reach out by phone or email above.</p>
+    <div class="disclaimer">Note: the two projects shown are sample designs built for practice and portfolio purposes, not commissioned client work.</div>
+  </footer>
+
+</div>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
